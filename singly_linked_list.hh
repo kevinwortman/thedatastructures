@@ -51,7 +51,7 @@ public:
     _head = new_head;
   }
 
-  void remove_front() {
+  void remove_front() throw(UnderflowException) {
     if (is_empty()) {
       throw UnderflowException();
     } else {
