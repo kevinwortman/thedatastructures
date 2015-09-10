@@ -3,6 +3,23 @@
 
 #include <string>
 
+// Invalid argument passed to a function.
+class ArgumentException {
+public:
+  ArgumentException(std::string& description) {
+    _description = description;
+  }
+
+  ArgumentException(const char* c_string) {
+    _description = c_string;
+  }
+
+  std::string& description() { return _description; }
+
+private:
+  std::string _description;
+};
+
 // Invalid array index: either negative, or greater than or equal to
 // the array length.
 class IndexException {
@@ -19,19 +36,7 @@ private:
   int _length, _index;
 };
 
-// Invalid argument passed to a function.
-class ArgumentException {
+class UnderflowException {
 public:
-  ArgumentException(std::string& description) {
-    _description = description;
-  }
-
-  ArgumentException(const char* c_string) {
-    _description = c_string;
-  }
-
-  std::string& description() { return _description; }
-
-private:
-  std::string _description;
+  UnderflowException() { }
 };

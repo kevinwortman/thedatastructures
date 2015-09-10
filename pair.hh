@@ -4,9 +4,10 @@
 template <typename LEFT, typename RIGHT>
 class Pair {
 public:
-  Pair(LEFT left, RIGHT right)
-    : _left(left),
-      _right(right) { }
+  Pair(LEFT left, RIGHT right) {
+    _left = left;
+    _right = right;
+  }
 
   LEFT left()   { return _left;  }
   RIGHT right() { return _right; }
