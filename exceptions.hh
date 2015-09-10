@@ -24,6 +24,9 @@ public:
   ArgumentException(std::string& description)
     : _description(description) { }
 
+  ArgumentException(const char* c_string)
+    : _description(c_string) { }
+
   std::string& description() { return _description; }
 
 private:
