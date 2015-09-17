@@ -54,6 +54,8 @@ public:
 
   ~DoublyLinkedList() {
     clear();
+    delete _header;
+    delete _trailer;
   }
 
   bool is_empty() {
