@@ -36,7 +36,14 @@ private:
   int _length, _index;
 };
 
+// Container is unexpectedly empty.
 class UnderflowException {
 public:
   UnderflowException() { }
+};
+
+// Fixed-capacity container is over-full.
+class OverflowException {
+public:
+  OverflowException() { }
 };
