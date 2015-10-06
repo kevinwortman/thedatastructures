@@ -22,5 +22,12 @@ int main() {
   while (!vect.is_empty())
     vect.remove_back();
 
+  cout << "Adding elements back in..." << endl;
+  for (int i = 0; i < N; i++)
+    vect.add_back(i);
+
+  cout << "clearing..." << endl;
+  vect.clear();
+
   return 0;
 }

@@ -10,17 +10,13 @@ template <typename ELEMENT>
 class DynamicVector {
 public:
   DynamicVector() {
-    clear();
+    // start out empty with capacity 1
+    _size = 0;
+    _storage = new FixedVector<ELEMENT>(1);
   }
 
   ~DynamicVector() {
     delete _storage;
-  }
-
-  void clear() {
-    // start out empty with capacity 1
-    _size = 0;
-    _storage = new FixedVector<ELEMENT>(1);
   }
 
   int size() {
@@ -43,7 +39,7 @@ public:
 
   void add_back(ELEMENT e) {
     // n < c
-    assert(_size < _storage->capacity());
+    assert(_size < current_capacity());
 
     _storage->set(_size, e);
     _size++;
@@ -60,6 +56,12 @@ public:
     maintain();
   }
 
+  void clear() {
+    _size = 0;
+    maintain();
+    assert(1 == current_capacity());
+  }
+
 private:
   FixedVector<ELEMENT> *_storage;
   int _size;
@@ -69,9 +71,13 @@ private:
       throw IndexException(index, _size);
   }
 
+  int current_capacity() {
+    return _storage->capacity();
+  }
+
   // Guarantee that capacity invariants are met, by resizing only when necessary.
   void maintain() {
-    int c = _storage->capacity();
+    int c = current_capacity();
     if (_size == c) {
       // grow to double current capacity
       resize(c * 2);
@@ -82,7 +88,7 @@ private:
       // shrink to half current capacity
       resize(c / 2);
     } else {
-      // nothing to do
+      // no maintenance required
     }
   }
     
