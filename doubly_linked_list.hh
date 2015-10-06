@@ -15,7 +15,7 @@ public:
   }
 
   DoublyLinkedNode<ELEMENT>* prev() {
-    return _next;
+    return _prev;
   }
   
   ELEMENT element() {
@@ -62,11 +62,15 @@ public:
     return (_header->next() == _trailer);
   }
 
-  ELEMENT front() {
+  ELEMENT front() throw(UnderflowException) {
+    if (is_empty())
+      throw UnderflowException();
     return _header->next()->element();
   }
 
-  ELEMENT back() {
+  ELEMENT back() throw(UnderflowException) {
+    if (is_empty())
+      throw UnderflowException();
     return _trailer->prev()->element();
   }
   
@@ -98,15 +102,15 @@ public:
 private:
   DoublyLinkedNode<ELEMENT> *_header, *_trailer;
 
-  void add_before(DoublyLinkedNode<ELEMENT>* finger, ELEMENT e) {
-    DoublyLinkedNode<ELEMENT>* node = new DoublyLinkedNode<ELEMENT>(finger->prev(), e, finger);
-    node->prev()->set_next(finger);
-    finger->set_prev(node);
+  void add_before(DoublyLinkedNode<ELEMENT>* where, ELEMENT e) {
+    DoublyLinkedNode<ELEMENT>* new_node = new DoublyLinkedNode<ELEMENT>(where->prev(), e, where);
+    where->prev()->set_next(new_node);
+    where->set_prev(new_node);
   }
 
-  void remove(DoublyLinkedNode<ELEMENT>* node) {
-    node->prev()->set_next(node->next());
-    node->next()->set_prev(node->prev());
-    delete node;
+  void remove(DoublyLinkedNode<ELEMENT>* where) {
+    where->prev()->set_next(where->next());
+    where->next()->set_prev(where->prev());
+    delete where;
   }
 };
