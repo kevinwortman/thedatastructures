@@ -10,13 +10,17 @@ template <typename ELEMENT>
 class DynamicVector {
 public:
   DynamicVector() {
-    // start out empty with capacity 1
-    _size = 0;
-    _storage = new FixedVector<ELEMENT>(1);
+    clear();
   }
 
   ~DynamicVector() {
     delete _storage;
+  }
+
+  void clear() {
+    // start out empty with capacity 1
+    _size = 0;
+    _storage = new FixedVector<ELEMENT>(1);
   }
 
   int size() {
