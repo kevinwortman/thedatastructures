@@ -18,7 +18,9 @@ public:
     delete [] _array;
   }
 
-  int capacity() { return _capacity; }
+  int capacity() {
+    return _capacity;
+  }
 
   ELEMENT get(int index) {
     check_index(index);
