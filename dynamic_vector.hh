@@ -17,7 +17,7 @@ public:
 
   ~DynamicVector() {
     delete _storage;
-  };
+  }
 
   int size() {
     return _size;
