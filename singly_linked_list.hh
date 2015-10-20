@@ -8,15 +8,26 @@
 template <typename ELEMENT>
 class SinglyLinkedNode {
 public:
-  SinglyLinkedNode(ELEMENT element, SinglyLinkedNode<ELEMENT>* next)
-    : _element(element),
-      _next(next) { }
+  SinglyLinkedNode(ELEMENT element, SinglyLinkedNode<ELEMENT>* next) {
+    _element = element;
+    _next = next;
+  }
 
-  ELEMENT element()                 { return _element; }
-  SinglyLinkedNode<ELEMENT>* next() { return _next; }
+  ELEMENT element() {
+    return _element;
+  }
 
-  void set_element(ELEMENT element)              { _element = element; }
-  void set_next(SinglyLinkedNode<ELEMENT>* next) { _next = next; }
+  void set_element(ELEMENT element) {
+    _element = element;
+  }
+
+  SinglyLinkedNode<ELEMENT>* next() {
+    return _next;
+  }
+
+  void set_next(SinglyLinkedNode<ELEMENT>* next) {
+    _next = next;
+  }
 
 private:
   ELEMENT _element;
