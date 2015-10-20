@@ -47,3 +47,7 @@ class OverflowException {
 public:
   OverflowException() { }
 };
+
+// Already reached the end of the iteration.
+class IteratorException {
+};
