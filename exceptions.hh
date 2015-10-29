@@ -51,3 +51,7 @@ public:
 // Already reached the end of the iteration.
 class IteratorException {
 };
+
+// Key does not exist in a map.
+class KeyException {
+};
