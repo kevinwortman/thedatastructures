@@ -5,6 +5,7 @@ This code is intended for pedagogical use, so it prioritizes readability and sim
 * Interfaces and implementations are mere conventions, not formalized through virtual abstract classes.
 * Classes implement only fundamental operations, and lack derived utility functions.
 * Arguments are always pass-by-value or pass-by-pointer, never pass-by-reference, for clarity.
+* We don't use initializer lists, again for clarity.
 * There is some unnecessary copying in a few places (see the above bullet item).
 * The code is not const-correct.
 * Recursion is preferred over loops, to provide ample examples of correct recursive code.
