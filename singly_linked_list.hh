@@ -71,6 +71,11 @@ public:
     while (!is_empty()) {
       remove_front();
     }
+
+    // double check invariants
+    assert(is_empty());
+    assert(0 == _length);
+    assert(nullptr == _head);
   }
 };
 
