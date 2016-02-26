@@ -53,8 +53,8 @@ class DoublyLinkedList {
 public:
   DoublyLinkedList() {
     // Create header and trailer nodes.
-    _header = new DoublyLinkedNode<ELT>(NULL, ELT(), NULL);
-    _trailer = new DoublyLinkedNode<ELT>(NULL, ELT(), NULL);
+    _header = new DoublyLinkedNode<ELT>(nullptr, ELT(), nullptr);
+    _trailer = new DoublyLinkedNode<ELT>(nullptr, ELT(), nullptr);
 
     // Make the header and trailer point to each other.
     _header->set_next(_trailer);
@@ -101,12 +101,10 @@ public:
   }
 
   void remove_front() {
-    assert(!is_empty());
     remove(_header->next());
   }
 
   void remove_back() {
-    assert(!is_empty());
     remove(_trailer->prev());
   }
 
@@ -129,6 +127,7 @@ private:
 
   void remove(DoublyLinkedNode<ELT>* where) {
     assert(nullptr != where);
+    assert(!is_empty());
     where->prev()->set_next(where->next());
     where->next()->set_prev(where->prev());
     delete where;
@@ -137,22 +136,21 @@ private:
 };
 
 // This iterator class is almost the same as for a singly linked
-// list. The main difference is that the iterator needs a pointer to
-// the original list so we can tell when we reach the trailer node.
+// list. The main difference is that we are past the end when the
+// location pointer is at the trailer node; in other words, we are
+// past the end when the current location's next is nullptr.
 template<typename ELT>
 class DoublyLinkedListIterator {
 private:
-  DoublyLinkedList<ELT>* _list;
   DoublyLinkedNode<ELT> *_location;
   
 public:
   DoublyLinkedListIterator(DoublyLinkedList<ELT>* list) {
     assert(nullptr != list);
-    _list = list;
     _location = list->_header->next();
   }
 
-  bool past_end() { return (_location == _list->_trailer); }
+  bool past_end() { return (nullptr == _location->next()); }
 
   ELT get() {
     assert(!past_end());
