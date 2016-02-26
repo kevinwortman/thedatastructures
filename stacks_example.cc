@@ -9,8 +9,7 @@ popping fixed stack: 1 2 3 4 5 6 7 8 9 10
 
 #include <iostream>
 
-#include "linked_stack.hh"
-#include "fixed_stack.hh"
+#include "stacks.hh"
 
 using namespace std;
 

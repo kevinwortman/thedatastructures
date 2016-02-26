@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <cassert>
+
 #include "fixed_vector.hh"
 #include "singly_linked_list.hh"
 
@@ -10,7 +12,7 @@ private:
   SinglyLinkedList<ELT> _elements;
 
 public:
-  LinkedList() { }
+  LinkedStack() { }
 
   int size() { return _elements.length(); }
   bool is_empty() { return _elements.is_empty(); }
@@ -48,12 +50,12 @@ public:
   
   ELT peek() {
     assert(!is_empty());
-    return _elements.get(_size - 1);
+    return _elements->get(_size - 1);
   }
 
   void push(ELT e) {
-    assert(_size < _elements.length());
-    _elements.set(_size, e);
+    assert(_size < _elements->length());
+    _elements->set(_size, e);
     _size++;
   }
 
