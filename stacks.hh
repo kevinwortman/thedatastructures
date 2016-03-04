@@ -9,6 +9,7 @@
 template<typename ELT>
 class LinkedStack {
 private:
+  // This is a very simple wrapper around SinglyLinkedList.
   SinglyLinkedList<ELT> _elements;
 
 public:
@@ -47,6 +48,9 @@ public:
 
   int size() { return _size; }
   bool is_empty() { return (0 == _size); }
+
+  int capacity() { return _elements->length(); }
+  bool is_full() { return (_size == capacity()); }
   
   ELT peek() {
     assert(!is_empty());
@@ -54,7 +58,7 @@ public:
   }
 
   void push(ELT e) {
-    assert(_size < _elements->length());
+    assert(!is_full());
     _elements->set(_size, e);
     _size++;
   }
