@@ -10,15 +10,21 @@ template <typename ELEMENT>
 class CircularArrayDeque {
 private:
   FixedVector<ELEMENT> *_vector;
-  int _front, _back, _size;
+  int _front,   // index of the front element
+      _trailer, // index of the position immediately after the last element
+      _size;    // number of elements in the queue
 
+  int circular_index(int index_that_may_be_out_of_bounds) {
+    return (index_that_may_be_out_of_bounds + _vector->length()) % _vector->length();
+  }
+  
 public:
   
   CircularArrayDeque(int capacity) {
     assert(capacity > 0);
     _vector = new FixedVector<ELEMENT>(capacity, ELEMENT());
     _front = 0;
-    _back = 0;
+    _trailer = 0;
     _size = 0;
   }
 
@@ -36,41 +42,33 @@ public:
 
   ELEMENT back() {
     assert(!is_empty());
-    return _vector->get(_back);
+    return _vector->get(circular_index(_trailer - 1));
   }
 
   void add_front(ELEMENT e) {
     assert(!is_full());
-    _front--;
-    if (-1 == _front) {
-      _front = capacity() - 1;
-    }
+    _front = circular_index(_front - 1);
     _vector->set(_front, e);
+    _size++;
   }
 
   void add_back(ELEMENT e) {
     assert(!is_full());
-    _back++;
-    if (capacity() == _back) {
-      _back = 0;
-    }
-    _vector->set(_back, e);
+    _vector->set(_trailer, e);
+    _trailer = circular_index(_trailer + 1);
+    _size++;
   }
 
   void remove_front() {
     assert(!is_empty());
-    _front++;
-    if (capacity() == _front) {
-      _front = 0;
-    }
+    _front = circular_index(_front + 1);
+    _size--;
   }
 
   void remove_back() {
     assert(!is_empty());
-    _back--;
-    if (-1 == _back) {
-      _back = capacity() - 1;
-    }
+    _trailer = circular_index(_trailer - 1);
+    _size--;
   }
 };
 
@@ -86,7 +84,7 @@ public:
 
   ~LinkedDeque() { delete _list; }
 
-  int size() { return _list->size(); }
+  int size() { return _list->length(); }
   bool is_empty() { return (0 == size()); }
 
   ELEMENT front() {
